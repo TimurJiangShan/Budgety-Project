@@ -22,3 +22,35 @@ function bar1() {
 
 let bindFoo = bar1.myBind1(foo1);
 console.log(bindFoo());
+
+
+/***************************  第二版  ********************************/
+
+Function.prototype.bind2 = function(context) {
+    let self = this;
+
+    // 获取bind2函数从第二个参数到最后一个参数
+    let args = Array.prototype.slice.call(arguments, 1);
+    console.log(arguments);
+    console.log(args);
+
+    return function(){
+
+        // 这个时候的arguments指的是bind返回的函数传入的参数
+        let bindArgs = Array.prototype.slice.call(arguments);
+        return self.apply(context, args.concat(bindArgs));
+    }
+}
+
+var foo = {
+    value: 1
+};
+
+function bar(name, age) {
+    console.log(this.value);
+    console.log(name);
+    console.log(age);
+}
+
+var bindFoo = bar.bind2(foo, 'daisy');
+bindFoo('18');
