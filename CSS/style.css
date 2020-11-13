@@ -38,3 +38,66 @@
     只要大于50% ， 就是圆，只不过超过50%，css就认为是无效的
     比如说 border-radius: 80%,也会是圆形
    */
+
+
+/* text-overflow: ellipsis 只适用于单行文本 */
+
+/*
+  多行省略 1. 私有属性
+*/
+.div4 {
+  height: 80px;
+
+  /* 把多余的地方隐藏掉 */
+  overflow: hidden;
+
+  /* 用于自适应布局 */
+  display: -webkit-box;
+
+  /* 文本从上到下，并且是把下面的省略 */
+  -webkit-box-orient: vertical;
+
+  /* 从第四行开始省略 */
+  -webkit-line-clamp: 4;
+}
+
+
+/*
+  多行省略 2. 伪元素
+  优点： css规范
+  缺点： 背景（如果是图片就不好搞）
+*/
+
+.div5 {
+  height: 75px;
+  overflow: hidden;
+  position: relative;
+  /* 给省略号增加点空间： */
+  padding-right: 1em;
+
+  /* 使左右两端整齐 */
+  text-align: justify;
+}
+
+.div5::before {
+  content: "...";
+  position: absolute;
+
+  /* 在右下角出现 */
+  right: 0;
+  bottom: 0;
+}
+
+/* 在不需要省略的时候隐藏掉省略号 */
+.div5::after {
+  content: "";
+  background: white;
+  position: absolute;
+  right: 0;
+
+  /* 1.小方块是行内元素，因此会一直跟在后面
+  2.只设置了绝对定位的右边位置，因此只会出现在最右边的位置 */
+  display: inline;
+  width: 1em;
+  height: 1em;
+}
