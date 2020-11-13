@@ -22,3 +22,19 @@
   border: 100px solid transparent;
   border-bottom-color: aquamarine;
 }
+
+/*
+  正方形变成圆形
+*/
+.div3 {
+  margin: 40px auto;
+  width: 200px;
+  height: 200px;
+  background-color: black;
+  border-radius: 50%;
+}
+  /* border-radius就是边长的一半 */
+  /*  
+    只要大于50% ， 就是圆，只不过超过50%，css就认为是无效的
+    比如说 border-radius: 80%,也会是圆形
+   */
