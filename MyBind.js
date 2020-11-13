@@ -30,11 +30,13 @@ Function.prototype.bind2 = function(context) {
     let self = this;
 
     // 获取bind2函数第二个参数到最后一个参数。 这里要用Array.prototype.slice.call来截取参数。
+    // arugments是对象，不是数组，不能直接切割
     let args = Array.prototype.slice.call(arguments, 1);
 
     return function(){
 
         // 这个时候的arguments是bind返回的函数传入的参数
+        // 单纯转换成数组，不进行切割
         let argsArray = Array.prototype.slice.call(arguments);
         return self.apply(context, args.concat(argsArray));
     }
@@ -52,3 +54,85 @@ function bar(name, age) {
 
 var bindFoo = bar.bind2(foo, 'daisy');
 bindFoo('18');
+
+
+
+
+/***************************  第三版  ********************************/
+
+
+Function.prototype.bind3 = function(context) {
+    let self = this;
+
+    // 获取bind2函数第二个参数到最后一个参数。 这里要用Array.prototype.slice.call来截取参数。
+    // arugments是对象，不是数组，不能直接切割
+    let args = Array.prototype.slice.call(arguments, 1);
+
+    return function(){
+
+        // 这个时候的arguments是bind返回的函数传入的参数
+        // 单纯转换成数组，不进行切割
+        let argsArray = Array.prototype.slice.call(arguments);
+        return self.apply(context, args.concat(argsArray));
+    }
+}
+
+// var value = 2;
+
+var foo3 = {
+    value: 1
+};
+
+function bar3(name, age) {
+    this.habit = 'shopping';
+    console.log(this.value);
+    console.log(name);
+    console.log(age);
+}
+
+bar3.prototype.collection = 'collection';
+
+var bindFoo3 = bar3.bind3(foo3, 'daisy');
+var b = new bindFoo3('12');
+console.log(b.collection);
+
+
+/***************************  第四版  ********************************/
+
+Function.prototype.bind4 = function(context){
+    var self = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    var result = function(){
+        var bindArgs = Array.prototype.slice.call(arguments);
+
+        // 作为构造函数的时候（new），this就指向实例（被new后赋值的那个变量）。
+        return self.apply(this instanceof result ? this : context, args.concat(bindArgs));
+    }
+
+    /**
+     * 把foo4这个原型对象赋值给bindFoo4这个函数的原型对象，让bindFoo4和bar4串联起来，
+     * 让bindFoo4这个函数的实例可以用到bar4原型对象的属性
+    */
+    result.prototype = this.prototype;
+    return result;
+}
+
+var value4 = 2;
+
+var foo4 = {
+    value: 1
+};
+
+function bar4(name, age) {
+    this.habit = 'shopping';
+    console.log(this.value);
+    console.log(name);
+    console.log(age);
+}
+
+bar4.prototype.friend = 'kevin';
+
+var bindFoo4 = bar4.bind4(foo4, 'daisy');
+var obj = new bindFoo4('18');
+console.log(obj.friend);
