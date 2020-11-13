@@ -1,0 +1,11 @@
+/*
+  等腰三角形
+*/
+
+.div2 {
+  margin: 40px auto;
+  width: 0px;
+  height: 0px;
+  border: 100px solid transparent;
+  border-bottom-color: aquamarine;
+}

@@ -1,0 +1,11 @@
+/*
+  等腰梯形
+*/
+
+.div1 {
+  margin: 40px auto;
+  width: 100px;
+  height: 0;
+  border: 100px solid transparent;
+  border-bottom-color: aquamarine;
+}
