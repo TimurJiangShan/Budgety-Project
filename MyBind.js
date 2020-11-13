@@ -136,3 +136,98 @@ bar4.prototype.friend = 'kevin';
 var bindFoo4 = bar4.bind4(foo4, 'daisy');
 var obj = new bindFoo4('18');
 console.log(obj.friend);
+
+
+/***************************  第五版  ********************************/
+
+Function.prototype.bind5 = function(context){
+    if (typeof this !== "function") {
+        throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+    }
+
+    var self = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+    var tempFunc = function(){};
+
+    var result = function(){
+        var bindArgs = Array.prototype.slice.call(arguments);
+
+        // 作为构造函数的时候（new），this就指向实例（被new后赋值的那个变量）。
+        return self.apply(this instanceof result ? this : context, args.concat(bindArgs));
+    }
+
+    /**
+     * 但是在这个写法中，我们直接将 fBound.prototype = this.prototype，
+     * 我们直接修改 fBound.prototype 的时候，也会直接修改绑定函数的 prototype。
+     * 这个时候，我们可以通过一个空函数来进行中转
+     * */ 
+    tempFunc.prototype = this.prototype;
+    result.prototype = new tempFunc();
+    return result;
+}
+
+var value5 = 2;
+
+var foo5 = {
+    value: 1
+};
+
+function bar5(name, age) {
+    this.habit = 'shopping';
+    console.log(this.value);
+    console.log(name);
+    console.log(age);
+}
+
+bar5.prototype.friend = 'kevin';
+
+var bindFoo5 = bar5.bind5(foo5, 'daisy');
+var obj = new bindFoo5('18');
+console.log(obj.friend);
+
+
+/*******************************************************/
+
+// 实现bind()
+
+Function.prototype.myBind9 = function(context){
+
+    if(typeof this !== 'function') {
+        throw new Error("Not a function");
+    }
+
+    var self = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    var fFunction = function(){};
+
+    var result = function(){
+        var argsArray = Array.prototype.slice.call(arguments);
+        return self.apply(this instanceof result ? this : context, args.concat(argsArray));
+    }
+
+    fFunction.prototype = this.prototype;
+    result.prototype = new fFunction();
+    return result;
+}
+
+
+var value9 = 2;
+
+var foo9 = {
+    value: 1
+};
+
+function bar9(name, age) {
+    this.habit = 'shopping';
+    console.log(this.value);
+    console.log(name);
+    console.log(age);
+}
+
+bar9.prototype.friend = 'kevin';
+
+var bindFoo9 = bar9.myBind9(foo9, 'daisy');
+// var obj = new bindFoo9('18');
+bindFoo9(20);
+
