@@ -1,0 +1,82 @@
+/**
+  垂直居中的方法
+  1. Padding
+  优点：设置上下内边距相等
+  缺点：父元素不能设置固定高度
+*/
+
+.div1 {
+  width: 200px;
+  border: 2px solid black;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.span1 {
+  font-size: 35px;
+}
+/**
+  2. Position: absolute
+  缺点：脱离了文档流
+*/
+
+
+.div2 {
+  width: 200px;
+  height: 400px;
+  border: 2px solid black;
+  position: relative;
+}
+
+.span2 {
+  position: absolute;
+  font-size: 35px;
+  top: 50%;
+
+  /* 向上偏移50% */
+  transform: translateY(-50%);
+}
+
+/* 3. 伪元素 */
+
+/* vertical-align属性。按照 w3school 上的解释：
+  该属性定义行内元素的基线相对于该元素所在行的基线的垂直对齐方式，默认值为 baseline。 
+  如果基准元素采用中线对齐，那么所在行的基线就是基准元素的中线；如果基准元素采用顶线对齐，那么所在行的基线就是基准元素的顶线。
+  基准元素按照自己的基线对齐，其余行内元素按照父元素的基线对齐：
+*/
+
+.div1 {
+  width: 400px;
+  height: 200px;
+  border: 2px solid black;
+}
+
+/* 添加父元素的伪元素，并且设置inline-block */
+.div1::after {
+  content: "";
+  display: inline-block;
+  background-color: gold;
+  width: 0;
+
+  /* 因为要铺满垂直高度，所以高度要和父元素的一模一样 */
+  height: 100%;
+
+  /* 再为span元素的vertical-align为middle
+    使得新元素的中线和父元素基线向上偏移 
+  */
+  vertical-align: middle;
+}
+
+.span1 {
+  font-size: 15px;
+  width: 150px;
+  border: 2px solid black;
+  display: inline-block;
+
+  /* 设置这一行是没有效果的，因为vertical-align不能影响块级元素中文本的对齐方式 
+    但是可以控制单元格中元素的垂直方向的对齐方式(要有兄弟元素作对比)
+    span这个元素占据的高度在这一行都是最大的，这一行的对齐要暂时听他的
+  */
+  vertical-align: middle;
+}
+
