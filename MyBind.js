@@ -29,16 +29,14 @@ console.log(bindFoo());
 Function.prototype.bind2 = function(context) {
     let self = this;
 
-    // 获取bind2函数从第二个参数到最后一个参数
+    // 获取bind2函数第二个参数到最后一个参数。 这里要用Array.prototype.slice.call来截取参数。
     let args = Array.prototype.slice.call(arguments, 1);
-    console.log(arguments);
-    console.log(args);
 
     return function(){
 
-        // 这个时候的arguments指的是bind返回的函数传入的参数
-        let bindArgs = Array.prototype.slice.call(arguments);
-        return self.apply(context, args.concat(bindArgs));
+        // 这个时候的arguments是bind返回的函数传入的参数
+        let argsArray = Array.prototype.slice.call(arguments);
+        return self.apply(context, args.concat(argsArray));
     }
 }
 
