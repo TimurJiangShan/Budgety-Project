@@ -11,10 +11,25 @@ width 和 height 属性可以发挥作用
 如果一个盒子对外显示为 inline，那么他的行为如下:
 
 盒子不会产生换行。
- width 和 height 属性将不起作用。
+  width 和 height 属性将不起作用。
 垂直方向的内边距、外边距以及边框会被应用但是不会把其他处于 inline 状态的盒子推开。
 水平方向的内边距、外边距以及边框会被应用且会把其他处于 inline 状态的盒子推开。
 用做链接的 <a> 元素、 <span>、 <em> 以及 <strong> 都是默认处于 inline 状态的。
 
 我们通过对盒子display 属性的设置，比如 inline 或者 block ，来控制盒子的外部显示类型。
 
+标准盒子模型：
+在标准模型中，如果你给盒设置 width 和 height，实际设置的是 content box。 padding 和 border 再加上设置的宽高一起决定整个盒子的大小。 见下图。
+
+假设定义了 width, height, margin, border, and padding:
+
+.box {
+  width: 350px;
+  height: 150px;
+  margin: 25px;
+  padding: 25px;
+  border: 5px solid black;
+}
+如果使用标准模型宽度 = 410px (350 + 25 + 25 + 5 + 5)，高度 = 210px (150 + 25 + 25 + 5 + 5)，padding 加 border 再加 content box。
+
+注: margin 不计入实际大小 —— 当然，它会影响盒子在页面所占空间，但是影响的是盒子外部空间。盒子的范围到边框为止 —— 不会延伸到margin。
