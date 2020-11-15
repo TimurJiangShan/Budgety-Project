@@ -1,0 +1,9 @@
+1）盒模型： 内容(content)、填充(padding)、边界(margin)、 边框(border)
+
+2）有两种， IE 盒子模型、标准 W3C 盒子模型；IE的content部分包含了 border 和 padding;
+
+设置盒模型的方式是：设置box-sizing
+  box-sizing:content-box  标准盒模型
+  box-sizing:border-box IE盒模型
+
+标准盒模型的width就是content，不包括其他部分
