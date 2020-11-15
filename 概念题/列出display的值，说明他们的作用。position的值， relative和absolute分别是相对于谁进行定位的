@@ -1,0 +1,16 @@
+display 的值的作用：
+1.block 象块类型元素一样显示。
+2.inline 缺省值。象行内元素类型一样显示。
+3.inline-block 象行内元素一样显示，但其内容象块类型元素一样显示。
+4.list-item 象块类型元素一样显示，并添加样式列表标记。
+
+position 的值的定位区别：
+1.absolute 生成绝对定位的元素，相对于 static 定位以外的第一个祖先元素进行定位。
+2.fixed 生成固定定位的元素，相对于浏览器窗口进行定位（老IE不支持）。
+3.relative 生成相对定位的元素，相对于其在普通流中的位置进行定位。
+4.static 默认值。没有定位，元素出现在正常的流中（忽略 top, bottom, left, right z-index 声明）。
+5.inherit 规定从父元素继承 position 属性的值。
+
+display: flex;
+
+注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
