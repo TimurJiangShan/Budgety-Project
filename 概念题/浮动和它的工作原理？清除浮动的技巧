@@ -30,3 +30,11 @@ clear: left; 告诉浏览器，我的左边不允许有浮动的元素存在，�
   display: block;
   clear: both;
 }
+
+
+当元素设置了overflow样式，且值不为visible时，该元素就建构了一个BFC(哪些情况下，元素可以建构出BFC，可以看查看CSS文档对BFC的定义)。
+在我们的例子中，.topDiv因设置了值为auto的overflow样式，
+所以该元素建构出一个BFC，按照第三个特点，BFC的高度是要包括浮动元素的，所以.topDiv的高度被撑起来，
+达到了清除浮动影响的目的。(至于为什么值为visible的overflow不能建构BFC，这个答案给了一个解释)
+其实，这里overflow的作用就是为了构建一个BFC区域，让内部浮动的影响都得以“内化”。如果你看了BFC的定义，你会发现，构建一个BFC区域的方法有很多种，overflow只是其中的一种，那在这里，我们是否也可以利用其它的方式构建BFC，且同样能达到清除浮动的目的呢？
+BFC定义中说，inline-block同样也能构建BFC，
