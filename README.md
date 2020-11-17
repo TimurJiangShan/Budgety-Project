@@ -1,3 +1,2 @@
-# Budgety-Project
-
-**Income and expense calculator implemented by JavaScript.**
+# Frontend Notes
+**Make Progress every step.**
