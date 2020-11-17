@@ -1,0 +1,4 @@
+1. jsonp（jsonp 的原理是动态插入 script 标签）
+2. document.domain + iframe
+3. window.name、window.postMessage
+4. 服务器上设置代理页面
