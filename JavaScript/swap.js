@@ -52,3 +52,16 @@ a = a^b;
 var a = 3;
 var b = 5;
 [a, b] = [b, a];
+
+
+function foo(a,b){
+  console.log(b);
+  return {
+    foo:function(c){
+      return foo(c,a);
+    }
+  }
+}
+var func3=foo(0).foo(1);
+func3.foo(2);
+func3.foo(3);
