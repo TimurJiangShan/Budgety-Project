@@ -65,3 +65,20 @@ function foo(a,b){
 var func3=foo(0).foo(1);
 func3.foo(2);
 func3.foo(3);
+
+
+
+
+
+var a = 1
+
+var obj = {
+  a: 2,
+  // 声明位置
+  showA: () => {
+      console.log(this.a)
+  }
+}
+
+// 调用位置
+obj.showA() // 1
