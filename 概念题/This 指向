@@ -1,0 +1,33 @@
+不管方法被书写在哪个位置，它的 this 只会跟着它的调用方走” 这个核心原则，就一定不会出错。
+
+This 取决于调用方，不是声明方。 否则就指向window或者global
+
+在三种特殊情境下，this 会 100% 指向 window：
+
+1. 立即执行函数（IIFE）
+2. setTimeout 中传入的函数
+3. setInterval 中传入的函数
+
+'use strict'
+
+var name = 'BigBear'
+
+var me = {
+  name: 'xiuyan',
+  hello: function() {
+    // 全局作用域下实现的延时函数
+    setTimeout(function() {
+      console.log(`你好，我是${this.name}`)
+    })
+  }
+}
+
+me.hello() // 你好，我是BigBear
+
+严格模式下this不一定是undefined
+
+
+箭头函数：
+箭头函数中的this，和你如何调用它无关，由你书写它的位置决定（和普通函数的this恰恰相反）
+
+
