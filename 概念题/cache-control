@@ -1,0 +1,17 @@
+网页的缓存是由HTTP消息头中的“Cache-control”来控制的，常见的取值有private、no-***、max-age、must-revalidate等，默认为private。
+
+Expires 头部字段提供一个日期和时间，响应在该日期和时间后被认为失效。允许客户端在这个时间之前不去检查（发请求），等同max-age的效果。但是如果同时存在，则被Cache-Control的max-age覆盖。
+
+Expires = "Expires" ":" HTTP-date
+例如：
+Expires: Thu, 01 Dec 1994 16:00:00 GMT （必须是GMT格式）
+如果把它设置为-1，则表示立即过期
+
+Expires 和 max-age 都可以用来指定文档的过期时间，但是二者有一些细微差别
+1. Expires在HTTP/1.0中已经定义，Cache-Control:max-age在HTTP/1.1中才有定义，为了向下兼容，仅使用max-age不够
+2. Expires指定一个绝对的过期时间(GMT格式),这么做会导致至少2个问题：
+    2.1客户端和服务器时间不同步导致Expires的配置出现问题。 
+    2.2很容易在配置后忘记具体的过期时间，导致过期来临出现浪涌现象
+3. max-age 指定的是从文档被访问后的存活时间，这个时间是个相对值(比如:3600s)，相对的是文档第一次被请求时服务器记录的Request_time(请求时间)
+4. Expires 指定的时间可以是相对文件的最后访问时间(Atime)或者修改时间(MTime)，而max-age相对对的是文档的请求时间(Atime)
+5. 如果值为 no-***,那么每次都会访问服务器。如果值为max-age，则在过期之前不会重复访问服务器。
