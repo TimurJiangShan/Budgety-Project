@@ -78,6 +78,21 @@ Function.prototype.call4 = function(context){
     return result;
 }
 
+
+
+Function.prototype.call5 = function(context){
+    let InnerContext = context || window;
+    InnerContext.fn = this;
+    const args = [];
+    for(let i = 1; i < arguments; i++) {
+        args.push('arguments[' + i + ']');
+    }
+    const result = eval('InnerContext.fn(' + args + ')');
+    delete InnerContext.fn;
+    return result;
+
+}
+
 let foo4 = {
     value: 3,
 }
