@@ -69,16 +69,12 @@ func3.foo(3);
 
 
 
-
-var a = 1
-
-var obj = {
-  a: 2,
-  // 声明位置
-  showA: () => {
-      console.log(this.a)
+function C(a) {
+  if(a) {
+    this.a = a;
   }
 }
 
-// 调用位置
-obj.showA() // 1
+C.prototype.a = 1;
+
+console.log(new C(2).a);
