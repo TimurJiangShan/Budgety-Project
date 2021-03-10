@@ -10,41 +10,48 @@ function CutePromise(executor){
 
     // reason 记录异步任务失败的原因
     this.reason = null;
-
     // status 记录当前状态，初始化为pending
     this.status = "pending";
 
     // 把this存下来，后面会用到
     var self = this;
 
+    // 定义resolve函数
     function resolve(value){
+        // 异步任务成功，把结果赋给value
         self.value = value;
+
+        // 当前状态切换为resolved
         self.status = "resolved";
     }
 
-    function rejected(reason){
+    // 定义reject函数
+    function reject(reason){
+        // 异步任务失败，把结果赋给reason
         self.reason = reason;
+
+        // 当前状态切换为rejected
         self.status = "rejected";
     }
 
-    executor(resolve, rejected);
+    // 把resolve和reject能力赋予执行器
+    executor(resolve, reject);
+
 }
 
 CutePromise.prototype.then = function (onResolved, onRejected) {
     // onResolved 和 onRejected 必须是函数，如果不是，就用穿透来兜底
-    if(typeof onResolved !== "function") {
-        onResolved = function (x) {
-            return x;
-        }
+    if (typeof onResolved !== "function") {
+        onResolved = function (x) {return x;}
     }
 
     if(typeof onRejected !== "function") {
-        onRejected = function (e) {
-            throw(e);
-        }
+        onRejected = function (e) {return e;}
     }
 
+    // 保存this
     var self = this;
+    // 判断是否是resolved状态
     if (self.status === "resolved") {
         onResolved(self.value);
     } else if (self.status === "rejected") {
