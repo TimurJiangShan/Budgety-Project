@@ -8,3 +8,9 @@ function indexOf(arr, item) {
   }
   return -1;
 }
+
+function demo() {
+    console.log('转换后的 arguments 对象：', [...arguments])
+}
+
+demo(1, 2, 3, 4)
