@@ -1,6 +1,5 @@
 /*
-* 节流： 是通过一段时间内巫师后来产生的回调请求来实现的。
-*
+* 节流： 是通过一段时间内无视后来产生的回调请求来实现的。
 * */
 
 function myThrottle(fn, interval){
@@ -19,5 +18,26 @@ function myThrottle(fn, interval){
             last = now;
             fn.apply(context, args);
         }
+    }
+}
+
+/*
+* 我们对比 throttle 来理解 debounce：在throttle的逻辑里，“第一个人说了算”，
+* 它只为第一个乘客计时，时间到了就执行回调。而 debounce 认为，“最后一个人说了算”，
+* debounce 会为每一个新乘客设定新的定时器。
+* */
+
+function debounce(fn, delay){
+    let timer = null;
+    return function () {
+        let context = this;
+        let args = arguments;
+        if (timer) {
+            clearTimeout(timer);
+        }
+        // 设立新定时器
+        timer = setTimeout(function (){
+            fn.apply(context, args);
+        }, delay);
     }
 }
